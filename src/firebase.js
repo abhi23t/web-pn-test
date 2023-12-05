@@ -19,27 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const messaging = getMessaging();
-
-export const requestForToken = () => {
-  return getToken(messaging, {
-    vapidKey: `BNm31COF8BI0NYY-Yg6h9np0IL5X_gBosa2m9ecv-fDznnKEFlF7UA9OIZwsxMNyXKeWTRvqFq2kvC8Zh_FJSDA`,
-  })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log("current token for client: ", currentToken);
-        // Perform any other neccessary action with the token
-      } else {
-        // Show permission request UI
-        console.log(
-          "No registration token available. Request permission to generate one."
-        );
-      }
-    })
-    .catch((err) => {
-      console.log("An error occurred while retrieving token. ", err);
-    });
-};
+export const messaging = getMessaging();
 
 // Handle incoming messages. Called when:
 // - a message is received while the app has focus

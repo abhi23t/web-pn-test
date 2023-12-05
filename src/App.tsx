@@ -1,13 +1,24 @@
-import React, { useEffect } from "react";
-import logo from "./logo.svg";
+import { getToken } from "firebase/messaging";
+import { useEffect, useState } from "react";
 import "./App.css";
-import { onMessageListener, requestForToken } from "./firebase";
+import { messaging, onMessageListener } from "./firebase";
+import logo from "./logo.svg";
 
 function App() {
   useEffect(() => {
     requestForToken();
   }, []);
-
+  const [token, setToken] = useState<string>();
+  const requestForToken = async () => {
+    try {
+      const token = await getToken(messaging, {
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
+      });
+      setToken(token);
+    } catch (error) {
+      console.log("An error occurred while retrieving token. ", error);
+    }
+  };
   onMessageListener()
     .then((payload) => {
       console.log(payload);
@@ -18,9 +29,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        {token ? (
+          <p>
+            Hey! This is your token <br />
+            <code>{token}</code>. <br />
+            Use me to test Push Notification.
+          </p>
+        ) : (
+          <p>Getting token...</p>
+        )}
         <a
           className="App-link"
           href="https://reactjs.org"
