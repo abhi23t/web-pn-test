@@ -31,21 +31,18 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         {token ? (
           <p>
-            Hey! This is your token <br />
-            <code>{token}</code>. <br />
-            Use me to test Push Notification.
+            Hey! This is your token 👇🏻
+            <br />
+            <br />
+            <br />
+            <code style={{ fontSize: "16px" }}>{token}</code> <br />
+            <br />
+            <br />
+            👆🏻 Use me to test Push Notification.
           </p>
         ) : (
           <p>Getting token...</p>
         )}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
